@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+const PORT = 8001;
 app.use(express.urlencoded());
 
 app.post("/auth", function (req, res) {
@@ -14,6 +15,6 @@ app.post("/auth", function (req, res) {
   res.status(403).send();
 });
 
-app.listen(8000, function () {
-  console.log("Listening on port 8000");
+app.listen(PORT, function () {
+  console.log(`Listening on port ${PORT}`);
 });
