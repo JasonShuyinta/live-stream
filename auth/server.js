@@ -1,13 +1,22 @@
 const express = require("express");
-const app = express();
+const axios = require("axios");
 
 const PORT = 8001;
-app.use(express.urlencoded());
+
+const app = express();
+app.use(express.json({ limit: "30mb", extended: true }));
+app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 app.post("/auth", function (req, res) {
-  const streamkey = req.body.key;
+  axios
+    .post(`http://localhost:8000/history/checkStreamAuthorization`, {
+      streamkey: req.body.key,
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log("Axios Error", err));
 
-  if (streamkey === "supersecret") {
+  const streamkey = req.body.key;
+  if (streamkey === "6145d2c7cbb6342005d532fb__ifkjckue:tk6vboql") {
     res.status(200).send();
     return;
   }
